@@ -1,5 +1,5 @@
-export const DEFAULT_LANG = "fr";
-export const DEFAULT_COUNTRY = "FR";
+export const DEFAULT_LANG = "en";
+export const DEFAULT_COUNTRY = "CA";
 export const GOOGLE_NEWS_RSS_BASE_URL = "https://news.google.com/rss";
 export const DEFAULT_TIME_DELTA_DAYS = 7;
 export const DEFAULT_DOWNLOAD_CONCURRENCY = 4;
