@@ -9,5 +9,11 @@ services:
     environment:
       MONGO_INITDB_DATABASE: scraping
 
+  ner:
+    build: ./packages/ner-service
+    container_name: scraping-ner
+    ports:
+      - "8001:8001"
+
 volumes:
   mongo-data:
