@@ -13,8 +13,6 @@ flowchart LR
     Search --> Dashboard[React Dashboard\nsearch, trends]
 ```
 
-The previous Python/Selenium implementation is archived in [legacy-python/](legacy-python/) for reference.
-
 ## Technology Stack
 
 **Backend & pipeline**
