@@ -52,10 +52,10 @@ npm run db:indexes
 
 ```bash
 # one keyword, one date range, all four stages
-npm run pipeline -- "data science" 2024-01-01 2024-01-08
+npm run pipeline -- "Generative AI" 2026-01-01 2024-01-09
 
 # or stage by stage
-npm run collect -- "data science" 2024-01-01 2024-01-08
+npm run collect -- "Generative AI" 2026-01-01 2026-01-09
 npm run download
 npm run extract
 npm run enrich
