@@ -11,6 +11,28 @@ Google News RSS -> RSS Collector -> HTML Downloader -> Content Extraction -> Mon
 
 The previous Python/Selenium implementation is archived in [legacy-python/](legacy-python/) for reference.
 
+## Technology Stack
+
+**Backend & pipeline**
+
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white)
+
+**Frontend**
+
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+
+**Infra & tooling**
+
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![npm](https://img.shields.io/badge/npm_workspaces-CB3837?style=for-the-badge&logo=npm&logoColor=white)
+
+Other notable libraries: `rss-parser` (feed parsing), `cheerio` / `jsdom` / `@mozilla/readability` (article extraction), `commander` (CLI), `pino` (logging), `p-limit` (concurrency), `date-fns` (dates).
+
 ## Setup
 
 ```bash
