@@ -2,11 +2,15 @@
 
 A Node.js pipeline that collects Google News RSS entries, downloads and extracts full article content, stores it in MongoDB, and exposes it through a search/trends API and React dashboard.
 
-```
-Google News RSS -> RSS Collector -> HTML Downloader -> Content Extraction -> MongoDB
-                                                               |-> NLP/LLM enrichment (stub)
-                                                               |-> Keyword search
-                                                               -> React Dashboard (search, trends)
+```mermaid
+flowchart LR
+    RSS[Google News RSS] --> Collector[RSS Collector]
+    Collector --> Downloader[HTML Downloader]
+    Downloader --> Extraction[Content Extraction]
+    Extraction --> Mongo[(MongoDB)]
+    Mongo --> Enrich[NLP / LLM enrichment - stub]
+    Mongo --> Search[Keyword search]
+    Search --> Dashboard[React Dashboard\nsearch, trends]
 ```
 
 The previous Python/Selenium implementation is archived in [legacy-python/](legacy-python/) for reference.
