@@ -1,4 +1,4 @@
 # One "keyword;dateFrom;dateTo" line per query batch, dates as YYYY-MM-DD.
 # Run with: npm run collect-batch -- ./examples/collect-batch-input.example.txt
-data science;2024-01-01;2024-06-01
-Alexandre DO;2024-01-01;2024-06-01
+Generative AI 2026-01-01 2026-01-09
+Alexandre DO;2026-01-01 2026-01-09
