@@ -1,4 +1,5 @@
 import { findByStatus, markEnriched, markEnrichFailed } from "../db/articleRepository.js";
+import { extractNamedEntities } from "./ner.js";
 import { STATUS } from "../shared/constants.js";
 import { logger } from "../shared/logger.js";
 
@@ -17,9 +18,9 @@ export async function analyzeSentiment(_article) {
   return { label: "unknown", score: null };
 }
 
-export async function extractEntities(_article) {
-  // TODO: replace with a real NER model / LLM call
-  return [];
+export async function extractEntities(article) {
+  const text = article.extraction?.text || "";
+  return extractNamedEntities(text);
 }
 
 export async function classifyTopics(_article) {
@@ -40,7 +41,7 @@ export async function enrichArticle(article) {
     sentiment,
     entities,
     topics,
-    method: "stub-v1",
+    method: "spacy-ner-v1",
     enrichedAt: new Date(),
   };
 }
