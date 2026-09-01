@@ -1,0 +1,35 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "db:indexes": "node src/db/indexes.js",
+    "collect": "node src/cli/index.js collect",
+    "collect-batch": "node src/cli/index.js collect-batch",
+    "download": "node src/cli/index.js download",
+    "extract": "node src/cli/index.js extract",
+    "enrich": "node src/cli/index.js enrich",
+    "pipeline": "node src/cli/index.js run",
+    "api": "node src/api/server.js"
+  },
+  "dependencies": {
+    "@mozilla/readability": "^0.5.0",
+    "cheerio": "^1.0.0",
+    "commander": "^12.1.0",
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsdom": "^25.0.1",
+    "mongodb": "^6.10.0",
+    "p-limit": "^6.1.0",
+    "pino": "^9.5.0",
+    "playwright": "^1.48.2",
+    "rss-parser": "^3.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "pino-pretty": "^11.3.0"
+  }
+}
