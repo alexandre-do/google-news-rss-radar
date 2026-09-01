@@ -8,7 +8,7 @@ flowchart LR
     Collector --> Downloader[HTML Downloader]
     Downloader --> Extraction[Content Extraction]
     Extraction --> Mongo[(MongoDB)]
-    Mongo --> Enrich[NLP / LLM enrichment - stub]
+    Mongo --> Enrich[NLP enrichment: spaCy NER + stub sentiment/topics]
     Mongo --> Search[Keyword search]
     Search --> Dashboard[React Dashboard\nsearch, trends]
 ```
@@ -39,6 +39,7 @@ Other notable libraries: `rss-parser` (feed parsing), `cheerio` / `jsdom` / `@mo
 
 ```bash
 docker compose up -d mongo   # or: npm run db:up
+npm run ner:up                # builds + starts the spaCy NER service on :8001
 npm install
 npx playwright install chromium
 cp .env.example .env
@@ -59,7 +60,7 @@ npm run extract
 npm run enrich
 
 # batch collect from a keyword;dateFrom;dateTo file
-npm run collect-batch -- packages/backend/examples/collect-batch-input.example.txt
+npm run collect-batch -- examples/collect-batch-input.example.txt
 ```
 
 ## Running the API and dashboard
@@ -81,5 +82,5 @@ npm run dashboard
 
 ## Notes
 
-- The enrichment stage (`packages/backend/src/enrich/enrich.js`) is a working pipeline stage with placeholder analysis — see the TODOs there for wiring in a real LLM call.
+- The enrichment stage (`packages/backend/src/enrich/enrich.js`) is a working pipeline stage. Entity/keyword extraction calls a local spaCy model (`en_core_web_sm`) served by the `ner` service (`packages/ner-service`, started via `npm run ner:up`) over HTTP — no external LLM API involved. It tags people, organizations, places, and generic noun-chunk keywords. Sentiment and topic classification are still placeholders — see the TODOs there for wiring in a real LLM call.
 - Search is keyword-only (MongoDB `$text`) for now; semantic/vector search is a documented extension point in `packages/backend/src/search/searchService.js`.
