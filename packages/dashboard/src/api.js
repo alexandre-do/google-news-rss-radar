@@ -1,9 +1,14 @@
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
 
-async function request(path) {
-  const res = await fetch(`${BASE_URL}${path}`);
+async function request(path, { method = "GET", body } = {}) {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    method,
+    headers: body ? { "Content-Type": "application/json" } : undefined,
+    body: body ? JSON.stringify(body) : undefined,
+  });
   if (!res.ok) {
-    throw new Error(`Request to ${path} failed with status ${res.status}`);
+    const payload = await res.json().catch(() => null);
+    throw new Error(payload?.error || `Request to ${path} failed with status ${res.status}`);
   }
   return res.json();
 }
@@ -33,4 +38,35 @@ export function getTrends({ dimension = "day", from, to, source } = {}) {
   if (to) params.set("to", to);
   if (source) params.set("source", source);
   return request(`/api/trends?${params.toString()}`);
+}
+
+// Pipeline stage triggers ---------------------------------------------
+
+// Collect stage: search Google News RSS for a keyword/date range.
+export function collectArticles({ keywords, dateFrom, dateTo, timeDelta }) {
+  return request("/api/pipeline/collect", {
+    method: "POST",
+    body: { keywords, dateFrom, dateTo, timeDelta },
+  });
+}
+
+// Download -> extract -> enrich (NER) chain over pending articles. Runs as
+// a background job on the server; poll getDownloadStatus() for progress.
+export function startDownload({ limit, concurrency, retryFailed } = {}) {
+  return request("/api/pipeline/download", {
+    method: "POST",
+    body: { limit, concurrency, retryFailed },
+  });
+}
+
+export function getDownloadStatus() {
+  return request("/api/pipeline/download/status");
+}
+
+// Deletes every article, resetting the app back to empty.
+export function resetArticles() {
+  return request("/api/pipeline/reset", {
+    method: "POST",
+    body: { confirm: "RESET" },
+  });
 }

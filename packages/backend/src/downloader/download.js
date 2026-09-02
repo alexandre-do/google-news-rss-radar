@@ -38,14 +38,26 @@ export async function downloadPending({
   limit = 0,
   concurrency = DEFAULT_DOWNLOAD_CONCURRENCY,
   retryFailed = false,
+  onProgress,
 } = {}) {
   const articles = await findPendingOrRetryable(STATUS.COLLECTED, STATUS.DOWNLOAD_FAILED, {
     limit,
     retryFailed,
   });
   const limiter = pLimit(concurrency);
+  const total = articles.length;
+  let done = 0;
 
-  const results = await Promise.all(articles.map((article) => limiter(() => downloadOne(article))));
+  const results = await Promise.all(
+    articles.map((article) =>
+      limiter(async () => {
+        const result = await downloadOne(article);
+        done += 1;
+        onProgress?.(done, total);
+        return result;
+      })
+    )
+  );
   await closeBrowser();
 
   logger.info({ count: results.length }, "Download stage complete");

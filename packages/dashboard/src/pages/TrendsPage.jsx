@@ -14,7 +14,7 @@ export default function TrendsPage() {
 
   return (
     <div className="page">
-      <h1>Trends</h1>
+      <h1>Data Analyst</h1>
       <div className="filter-bar">
         <label>
           Group by

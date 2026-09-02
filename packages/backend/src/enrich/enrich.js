@@ -46,7 +46,7 @@ export async function enrichArticle(article) {
   };
 }
 
-export async function enrichPending({ limit = 0 } = {}) {
+export async function enrichPending({ limit = 0, onProgress } = {}) {
   const articles = await findByStatus([STATUS.EXTRACTED], { limit });
 
   const results = [];
@@ -60,6 +60,7 @@ export async function enrichPending({ limit = 0 } = {}) {
       await markEnrichFailed(article.uuid, err);
       results.push({ uuid: article.uuid, error: err.message });
     }
+    onProgress?.(results.length, articles.length);
   }
 
   logger.info({ count: results.length }, "Enrichment stage complete");
