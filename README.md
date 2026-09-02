@@ -2,6 +2,10 @@
 
 A Node.js pipeline that collects Google News RSS entries, downloads and extracts full article content, stores it in MongoDB, and exposes it through a search/trends API and React dashboard.
 
+## Demo
+
+![Demo](assets/demo.gif)
+
 ```mermaid
 flowchart LR
     RSS[Google News RSS] --> Collector[RSS Collector]
@@ -70,6 +74,9 @@ npm run dev            # API on :4000 + dashboard on :5173
 # or individually:
 npm run api
 npm run dashboard
+
+npm run stop           # stop API + dashboard
+npm run stop --all  # also stop mongo/ner containers
 ```
 
 ## API
