@@ -17,7 +17,8 @@
     "pipeline": "npm run pipeline -w backend --",
     "api": "npm run api -w backend",
     "dashboard": "npm run dev -w dashboard",
-    "dev": "concurrently \"npm run api\" \"npm run dashboard\""
+    "dev": "node scripts/dev.js",
+    "stop": "node scripts/stop.js"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
