@@ -194,6 +194,12 @@ export async function searchArticles({ q, source, from, to, status, page = 1, pa
   return { items, total, page: Number(page) || 1, pageSize: size };
 }
 
+export async function deleteAllArticles() {
+  const col = await collection();
+  const { deletedCount } = await col.deleteMany({});
+  return deletedCount;
+}
+
 export async function distinctSources() {
   const col = await collection();
   const sources = await col.distinct("rss.source.title");

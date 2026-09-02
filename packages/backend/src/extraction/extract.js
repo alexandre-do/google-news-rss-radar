@@ -3,7 +3,7 @@ import { extractArticle } from "./extractArticle.js";
 import { STATUS } from "../shared/constants.js";
 import { logger } from "../shared/logger.js";
 
-export async function extractPending({ limit = 0, retryFailed = false } = {}) {
+export async function extractPending({ limit = 0, retryFailed = false, onProgress } = {}) {
   const articles = await findPendingOrRetryable(STATUS.DOWNLOADED, STATUS.EXTRACTION_FAILED, {
     limit,
     retryFailed,
@@ -20,6 +20,7 @@ export async function extractPending({ limit = 0, retryFailed = false } = {}) {
       await markExtractionFailed(article.uuid, err);
       results.push({ uuid: article.uuid, error: err.message });
     }
+    onProgress?.(results.length, articles.length);
   }
 
   logger.info({ count: results.length }, "Extraction stage complete");

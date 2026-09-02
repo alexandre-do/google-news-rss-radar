@@ -5,6 +5,7 @@ import { logger } from "../shared/logger.js";
 import { getDb } from "../db/client.js";
 import { articlesRouter, sourcesRouter } from "./routes/articles.js";
 import { trendsRouter } from "./routes/trends.js";
+import { pipelineRouter } from "./routes/pipeline.js";
 
 export function createApp() {
   const app = express();
@@ -24,6 +25,7 @@ export function createApp() {
   app.use("/api/articles", articlesRouter);
   app.use("/api/trends", trendsRouter);
   app.use("/api/sources", sourcesRouter);
+  app.use("/api/pipeline", pipelineRouter);
 
   app.use((err, req, res, next) => {
     logger.error(err, "API error");

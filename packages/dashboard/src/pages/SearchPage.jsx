@@ -53,7 +53,7 @@ export default function SearchPage() {
 
   return (
     <div className="page">
-      <h1>Article Search</h1>
+      <h1>Search Article</h1>
       <SearchBar value={query} onChange={setQuery} onSubmit={handleSearchSubmit} />
       <FilterBar
         sources={sources}
